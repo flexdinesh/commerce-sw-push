@@ -51,7 +51,7 @@ self.addEventListener('push', function(event) {
         '%20text%3D%22london%2C%20uk%22)&format=json&env=store%3A%2F%2' +
         'Fdatatables.org%2Falltableswithkeys';*/
 
-    var pushMessageEndPoint = 'http://localhost:3000/push/getPushMessage'
+    var pushMessageEndPoint = 'https://commerce-push.herokuapp.com/push/getPushMessage'
         // Since this is no payload data with the first version
         // of Push notifications, here we'll grab some data from
         // an API and use it to populate a notification

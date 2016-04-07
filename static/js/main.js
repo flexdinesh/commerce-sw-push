@@ -12,7 +12,7 @@ if ('serviceWorker' in navigator) {
             var endpointSections = sub.endpoint.split('/');
             var subscriptionId = endpointSections[endpointSections.length - 1];
             console.log(subscriptionId);
-            var jqxhr = $.post("http://localhost:3000/db/addToken", { tokenid: subscriptionId })
+            var jqxhr = $.post("https://commerce-push.herokuapp.com/db/addToken", { tokenid: subscriptionId })
                 .done(function() {
                     console.log("tokenid sent to server");
                 })

@@ -11,7 +11,8 @@
         "express": "*",
         "jade": "*",
         "nconf": "*",
-        "node-gcm":"*",
-        "mongodb":"*"
+        "cfenv": "*",
+        "node-gcm": "*",
+        "mongodb": "*"
     }
 }

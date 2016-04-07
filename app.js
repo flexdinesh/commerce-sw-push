@@ -4,6 +4,7 @@ Server: Node JS
 */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
+var cfenv = require("cfenv");
 var fs = require('fs');
 var express = require('express');
 var nconf = require('nconf');
@@ -21,6 +22,8 @@ nconf.argv()
         file: './config/app-config.json'
     });
 
+// get the core cfenv application environment
+var appEnv = cfenv.getAppEnv();
 var app = express();
 
 app.set('views', __dirname + '/views');
@@ -31,10 +34,10 @@ app.use("/js", express.static(__dirname + '/static/js'));
 app.use("/images", express.static(__dirname + '/static/images'));
 app.use("/logs", express.static(__dirname + '/logs'));
 
+/*Logger Declaration*/
 
-function include(f) {
-    eval.apply(global, [fs.readFileSync(f).toString()]);
-}
+var log4js = require('log4js');
+var logger = log4js.getLogger('adapCom');
 
 /* HTTPS SSL Support (Port:443) */
 /*var secureOptions = {
@@ -42,12 +45,6 @@ function include(f) {
     cert: fs.readFileSync('config/ssl/cert.pem'),
     rejectUnauthorized: false
 };*/
-
-
-/* HTTP Server (Port: 3000) */
-var httpServer = http.createServer(app);
-// var httpsServer = https.createServer(secureOptions, app);
-
 
 /*Router Declarations*/
 var index = require(__dirname + '/routes/index'); //Generic routes
@@ -86,8 +83,16 @@ app.use(function(err, req, res, next) {
 
 
 /*Starting the server*/
+// sets port 3000 to default or unless otherwise specified in the environment
+app.set('port', process.env.VCAP_APP_PORT || process.env.PORT || nconf.get('httpPort'));
 
-httpServer.listen(nconf.get('httpPort'));
-// httpsServer.listen(nconf.get('httpsPort'));
-console.log('HTTP Server Initiated on port %s at %s : ', httpServer.address().port, httpServer.address().address);
-// logger.info('HTTPS Server Initiated on port %s at %s : ', httpsServer.address().port, httpsServer.address().address);
+// start the server, writing a message once it's actually started
+app.listen(app.get('port'), function() {
+    log("server starting on port : " + app.get('port'));
+});
+
+// logger.info('HTTP Server Initiated on port %s at %s : ', httpServer.address().port, httpServer.address().address);
+
+function log(message) {
+    logger.info(appEnv.name + " : " + message);
+}

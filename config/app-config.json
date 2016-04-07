@@ -7,6 +7,6 @@
     "gcm-tokens": ["eno-PmPrUfQ:APA91bFYOqU0M9AwTzKd3JyM840ktkAiC2dmVDaKYl1uIMQ1efC0bpqT--5roavgqNsaGDWn5cHXXBNSFoDoXEvEqtZDtNU_cqQM7GLvE0lm03YkxXGVhzKGa2QRvhTXAj4AkzeUxCTY"],
 
     "db-url": "mongodb://dinesh:123456@ds023108.mlab.com:23108/pushdb",
-    "db-name": "pushdb",
+    "db-name": "pushdb"
 
 }

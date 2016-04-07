@@ -1,0 +1,17 @@
+{
+    "name": "commerce-push-middleware",
+    "version": "1.0.0",
+    "description": "Codes and Gears 2016 Hackathon POC application",
+    "author": "Dinesh",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "body-parser": "*",
+        "express": "*",
+        "jade": "*",
+        "nconf": "*",
+        "node-gcm":"*",
+        "mongodb":"*"
+    }
+}

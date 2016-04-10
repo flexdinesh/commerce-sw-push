@@ -1,5 +1,40 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{welcomeText}
+	div(class="container")
+		div(class="page-header")
+			h1 Commerce Push Middleware
+			div(class="alert alert-dismissible alert-success" id="statusSuccess" style="display:none;")
+					button(type="button" class="close" data-hide="alert") x
+					p(class="statusContent")
+						strong Content successfully updated!
+			div(class="alert alert-dismissible alert-danger" id="statusFail" style="display:none;")
+					button(type="button" class="close" data-hide="alert") x
+					p(class="statusContent")
+						strong Content update failed!
+		
+		div(class="col-md-6")
+			div(class="jumbotron")
+				h2 Set Notification Content
+				form(class="form-horizontal")
+					div(class="form-group")
+						label(for="title" class="col-md-2 control-label") Title
+						div(class="col-md-10")
+							input(type="text" class="form-control" id="title" value="Notification title")
+					div(class="form-group")
+						label(for="message" class="col-md-2 control-label") Message
+						div(class="col-md-10")
+							input(type="text" class="form-control" id="message" value="Notification content goes here")
+					div(class="form-group")
+						label(for="uri" class="col-md-2 control-label") Title
+						div(class="col-md-10")
+							input(type="text" class="form-control" id="uri" value="uri goes here")
+					p
+						a(class="btn btn-raised btn-success" id="notificationButton" role="button") Set Content
+
+		div(class="col-md-6")
+			div(class="jumbotron")
+				h2 Send Push
+				p Send push notification to all registered devices
+				p
+					a(class="btn btn-raised btn-success" id="pushButton" role="button") Send Push

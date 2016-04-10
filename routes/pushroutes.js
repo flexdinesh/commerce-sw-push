@@ -42,26 +42,17 @@ router.post('/setPushMessage', function(req, res, next) {
 
     console.log("setPushMessage POST call received");
 
-    var title = req.query.title;
-    var body = req.query.body;
-    var icon = req.query.icon;
-    var uri = req.query.url;
-    if (!title && !body && !icon && !uri) {
-        console.log("Message parameters empty");
-        message = {
-            title: 'Notification title',
-            body: 'Notification content goes here',
-            icon: 'images/icon.png',
-            url: 'uri goes here'
-        };
-    } else {
-        message = {
-            title: title,
-            body: body,
-            icon: icon,
-            url: uri
-        };
-    }
+    var title = req.body.title ? req.body.title : 'Notification title';
+    var body = req.body.body ? req.body.body : 'Notification content goes here';
+    var icon = req.body.icon ? req.body.icon : 'images/icon.png';
+    var uri = req.body.url ? req.body.url : 'uri goes here';
+
+    message = {
+        title: title,
+        body: body,
+        icon: icon,
+        url: uri
+    };
 
     dbEndPointObj.setPushMessage(message, function(err, data) {
 

@@ -32,6 +32,7 @@ app.use("/", express.static(__dirname + '/static/'));
 app.use("/css", express.static(__dirname + '/static/css'));
 app.use("/js", express.static(__dirname + '/static/js'));
 app.use("/images", express.static(__dirname + '/static/images'));
+app.use("/bower_components", express.static(__dirname + '/static/bower_components'));
 app.use("/logs", express.static(__dirname + '/logs'));
 
 /*Logger Declaration*/

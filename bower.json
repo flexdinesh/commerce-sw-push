@@ -1,0 +1,46 @@
+{
+
+    "name": "commerce-push-middleware",
+
+    "private": true,
+
+    "dependencies": {
+
+        "bootstrap": "latest",
+
+        "jquery": "latest"
+
+    },
+    "ignore": [
+        "screenshots",
+        "demo",
+        ".editorconfig",
+        ".gitignore",
+        ".jshintrc",
+        ".travis.yml",
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "AUTHORS.txt",
+        "LICENSE.txt",
+        "LICENSE",
+        "README.md",
+        "package.json",
+        "package.js",
+        "bower.json",
+        ".bower.json",
+        "Gruntfile.json",
+        "Gruntfile.js",
+        "index.html",
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "grunt",
+        "less",
+        "nudget",
+        "sizzle",
+        "src",
+        "test",
+        "tests"
+    ]
+
+}

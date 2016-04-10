@@ -4,7 +4,8 @@
     "description": "Codes and Gears 2016 Hackathon POC application",
     "author": "Dinesh",
     "scripts": {
-        "start": "node app.js"
+        "start": "node app.js",
+        "postinstall": "./node_modules/bower/bin/bower install"
     },
     "dependencies": {
         "body-parser": "*",
@@ -14,6 +15,7 @@
         "cfenv": "*",
         "log4js": "*",
         "node-gcm": "*",
-        "mongodb": "*"
+        "mongodb": "*",
+        "bower":"*"
     }
 }

@@ -11,7 +11,7 @@ var endpointObj = require(__base + 'lib/logic/push-endpoint.js');
 router.get('/', function(req, res) {
     // res.send('Node Application is running');
     res.render('index', {
-        title: "I am a title",
+        title: "Commerce-Push",
         welcomeText: "my page"
     });
 });

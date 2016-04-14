@@ -40,13 +40,6 @@ app.use("/logs", express.static(__dirname + '/logs'));
 var log4js = require('log4js');
 var logger = log4js.getLogger('adapCom');
 
-/* HTTPS SSL Support (Port:443) */
-/*var secureOptions = {
-    key: fs.readFileSync('config/ssl/key.pem'),
-    cert: fs.readFileSync('config/ssl/cert.pem'),
-    rejectUnauthorized: false
-};*/
-
 /*Router Declarations*/
 var index = require(__dirname + '/routes/index'); //Generic routes
 var dbroutes = require(__dirname + '/routes/dbroutes'); //db routes
@@ -82,18 +75,38 @@ app.use(function(err, req, res, next) {
     res.status(500).json(errObj);
 });
 
+/* HTTPS SSL Support (Port:443) */
+var secureOptions = {
+    key: fs.readFileSync('config/ssl/key.pem'),
+    cert: fs.readFileSync('config/ssl/cert.pem'),
+    rejectUnauthorized: false
+};
+
+/* HTTP Server (Port: 3000) */
+
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(secureOptions, app);
 
 /*Starting the server*/
 // sets port 3000 to default or unless otherwise specified in the environment
-app.set('port', process.env.VCAP_APP_PORT || process.env.PORT || nconf.get('httpPort'));
+
+httpServer.listen(process.env.VCAP_APP_PORT || process.env.PORT || nconf.get('httpPort'));
+logger.info('HTTP Server Initiated on port %s at %s : ', httpServer.address().port, httpServer.address().address);
+// start https server only in local environment
+if (!process.env.VCAP_APP_PORT && !process.env.PORT) {
+    httpsServer.listen(nconf.get('httpsPort'));
+    logger.info('HTTPS Server Initiated on port %s at %s : ', httpsServer.address().port, httpsServer.address().address);
+}
+
+/*Starting the server*/
+/*app.set('port', process.env.VCAP_APP_PORT || process.env.PORT || nconf.get('httpPort'));
 
 // start the server, writing a message once it's actually started
 app.listen(app.get('port'), function() {
     log("server starting on port : " + app.get('port'));
 });
 
-// logger.info('HTTP Server Initiated on port %s at %s : ', httpServer.address().port, httpServer.address().address);
-
 function log(message) {
     logger.info(appEnv.name + " : " + message);
 }
+*/

@@ -41,7 +41,7 @@ $(document).ready(function() {
         }).done(function(response, textStatus, jqXHR) {
             $('#statusSuccess p').html('Push successfully triggered to all devices');
             $('#statusSuccess').show();
-            console.log("Push triggered");
+            // console.log("Push triggered");
         }).fail(function(jqXHR, textStatus, errorThrown) {
             $('#statusFail p').html('Push trigger failed!');
             $('#statusFail').show();
@@ -57,12 +57,12 @@ if ('serviceWorker' in navigator) {
         console.log("registered ");
         return navigator.serviceWorker.ready;
     }).then(function(reg) {
-        console.log('Service Worker is ready :^)', reg);
+        // console.log('Service Worker is ready :^)', reg);
         reg.pushManager.subscribe({ userVisibleOnly: true }).then(function(sub) {
-            console.log('endpoint:', sub.endpoint);
+            // console.log('endpoint:', sub.endpoint);
             var endpointSections = sub.endpoint.split('/');
             var subscriptionId = endpointSections[endpointSections.length - 1];
-            console.log(subscriptionId);
+            // console.log(subscriptionId);
             var jqxhr = $.post("https://commerce-push.herokuapp.com/db/addToken", { tokenid: subscriptionId })
                 .done(function() {
                     console.log("tokenid sent to server");

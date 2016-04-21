@@ -2,10 +2,11 @@
 
 // console.log('Started', self);
 
-function showNotification(title, message, icon, urlToOpen) {
-    console.log('showNotification');
+function showNotification(title, body, icon, urlToOpen) {
+    // console.log('showNotification');
     var notificationOptions = {
-        body: message,
+        body: body,
+        icon: icon,
         data: urlToOpen
     };
     return self.registration.showNotification(title, notificationOptions);
@@ -31,27 +32,25 @@ self.addEventListener('push', function(event) {
         // Since this is no payload data with the first version
         // of Push notifications, here we'll grab some data from
         // an API and use it to populate a notification
-    event.waitUntil(
-        fetch(pushMessageEndPoint)
+    fetch(pushMessageEndPoint)
         .then(function(response) {
-            if (response.status !== 200) {
-                console.log(response.status);
+            /*if (response.status !== 200) {
                 // Throw an error so the promise is rejected and catch() is executed
                 console.log("error in fetch");
                 throw new Error('Invalid status code from fetch data: ' +
                     response.status);
-            }
+            }*/
 
             // Examine the text in the response
-            console.log(response.json());
+            // console.log(response.json());
             return response.json();
         })
         .then(function(data) {
-            console.log('Fetch data: ', data);
+            // console.log('Fetch data: ', data);
 
             var title = data.title;
             var message = data.body;
-            var icon = data.icon;
+            var icon = '/images/icons/deals.png';
 
             // Add this to the data of the notification
             // var urlToOpen = data.query.results.channel.link;
@@ -67,12 +66,11 @@ self.addEventListener('push', function(event) {
 
             return showNotification(title, message);
         })
-    );
 });
 
 self.addEventListener('notificationclick', function(event) {
     var url = event.notification.data;
-    console.log(url);
+    console.log("url : " + url);
     event.notification.close();
     event.waitUntil(clients.openWindow(url));
 });

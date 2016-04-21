@@ -2,11 +2,11 @@
 
 // console.log('Started', self);
 
-function showNotification(title, body, icon, data) {
+function showNotification(title, message, icon, urlToOpen) {
     console.log('showNotification');
     var notificationOptions = {
-        body: body,
-        data: data
+        body: message,
+        data: urlToOpen
     };
     return self.registration.showNotification(title, notificationOptions);
 }
@@ -21,7 +21,7 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('push', function(event) {
-    console.log('Push message', event);
+    // console.log('Push message', event);
 
     if (event.data) {
         console.log('message data', event.data);
@@ -35,6 +35,7 @@ self.addEventListener('push', function(event) {
         fetch(pushMessageEndPoint)
         .then(function(response) {
             if (response.status !== 200) {
+                console.log(response.status);
                 // Throw an error so the promise is rejected and catch() is executed
                 console.log("error in fetch");
                 throw new Error('Invalid status code from fetch data: ' +
@@ -70,7 +71,8 @@ self.addEventListener('push', function(event) {
 });
 
 self.addEventListener('notificationclick', function(event) {
-    var url = event.notification.data.url;
+    var url = event.notification.data;
+    console.log(url);
     event.notification.close();
     event.waitUntil(clients.openWindow(url));
 });

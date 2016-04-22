@@ -7,7 +7,8 @@ function showNotification(title, body, icon, urlToOpen) {
     var notificationOptions = {
         body: body,
         icon: icon,
-        data: urlToOpen
+        data: urlToOpen,
+        tag: 'sw-notify'
     };
     return self.registration.showNotification(title, notificationOptions);
 }
@@ -70,7 +71,7 @@ self.addEventListener('push', function(event) {
 
 self.addEventListener('notificationclick', function(event) {
     var url = event.notification.data;
-    console.log("url : " + url);
+    // console.log("url : " + url);
     event.notification.close();
     event.waitUntil(clients.openWindow(url));
 });

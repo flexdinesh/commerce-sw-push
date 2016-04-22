@@ -12,7 +12,8 @@ $(document).ready(function() {
     $("#notificationButton").click(function() {
         var title = $("#title").val();
         var message = $("#message").val();
-        var uri = $("#uri").val();
+        // var uri = $("#uri").val();
+        var uri = "http://192.168.2.98/webapp/wcs/stores/servlet/en/aurorac/"
 
         var jqXHR = $.ajax({
             url: "https://commerce-push.herokuapp.com/push/setPushMessage",

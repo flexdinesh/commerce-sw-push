@@ -51,7 +51,7 @@ self.addEventListener('push', function(event) {
 
             var title = data.title;
             var message = data.body;
-            var icon = '/images/icons/deals.png';
+            var icon = '/images/icons/icon.png';
 
             // Add this to the data of the notification
             // var urlToOpen = data.query.results.channel.link;
